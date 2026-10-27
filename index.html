@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0c0e13" />
+    <meta name="description" content="Kyle Joshua C. Acosta is a Computer Science student at Eclaro Academy interested in programming, technology, and continuous learning." />
+    <title>Kyle Joshua C. Acosta — Personal Portfolio</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      document.documentElement.classList.add('has-js');
+      window.setTimeout(function () {
+        if (!window.__portfolioRevealReady) document.documentElement.classList.remove('has-js');
+      }, 2500);
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <a class="brand" href="#home" aria-label="Kyle Acosta, home">
+          <span class="brand-mark" aria-hidden="true">K<span>.</span></span>
+          <span class="brand-name">KYLE ACOSTA</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation menu">
+          <span></span><span></span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#education">Education</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#interests">Interests</a>
+          <a class="nav-contact" href="#contact">Let's talk <span aria-hidden="true">↗</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero container" id="home" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> COMPUTER SCIENCE STUDENT</p>
+          <h1 id="hero-title">Kyle Joshua<br /><span>C. Acosta<span class="accent">.</span></span></h1>
+          <p class="hero-role">Computer Science Student <span aria-hidden="true">/</span> Aspiring Software Developer</p>
+          <p class="hero-intro">I'm studying Computer Science at Eclaro Academy and building my foundation in programming. I'm curious about technology, eager to learn, and ready to grow through new challenges.</p>
+          <div class="hero-actions">
+            <button class="button button-primary" id="cv-download" type="button" disabled>CV not added yet <span aria-hidden="true">↓</span></button>
+            <a class="button button-secondary" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="cv-note" id="cv-note" role="status" aria-live="polite">Add your real CV PDF to enable the download.</p>
+          <p class="hero-location"><span aria-hidden="true">⌖</span> Quezon City, Philippines</p>
+        </div>
+
+        <div class="hero-visual" role="img" aria-label="Looping profile video of Kyle Joshua C. Acosta">
+          <div class="portrait-frame">
+            <video class="portrait-video" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
+              <source src="/profile-loop.mp4" type="video/mp4" />
+            </video>
+            <div class="portrait-grid" aria-hidden="true"></div>
+            <div class="portrait-initials" aria-hidden="true">KA<span>.</span></div>
+            <div class="portrait-caption"><span>CS STUDENT</span><span>QUEZON CITY · PH</span></div>
+          </div>
+          <div class="visual-label"><span class="status-dot" aria-hidden="true"></span> ALWAYS LEARNING</div>
+        </div>
+        <a class="scroll-cue" href="#about"><span aria-hidden="true">↓</span> EXPLORE PORTFOLIO</a>
+      </section>
+
+      <section class="section section-muted" id="about" aria-labelledby="about-title">
+        <div class="container about-layout">
+          <div class="section-heading">
+            <p class="kicker">01 / ABOUT</p>
+            <h2 id="about-title">Curious by nature.<br /><span>Learning by doing.</span></h2>
+          </div>
+          <div class="about-copy">
+            <p class="lead">I'm building my foundation in Computer Science and exploring how technology can be used to solve problems.</p>
+            <p>As a student at Eclaro Academy, I'm developing my programming and computer skills step by step. I bring adaptability, a willingness to learn, and a problem-solving mindset to new challenges.</p>
+            <p>I'm interested in continuing to learn and grow as an aspiring software developer.</p>
+            <div class="about-tags" aria-label="Personal strengths"><span>Continuous learning</span><span>Adaptability</span><span>Problem-solving</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="education" aria-labelledby="education-title">
+        <div class="section-heading section-heading-row">
+          <div><p class="kicker">02 / EDUCATION</p><h2 id="education-title">The learning path<span class="accent">.</span></h2></div>
+          <p class="section-aside">A foundation for what comes next.</p>
+        </div>
+        <div class="education-list">
+          <article class="education-card education-current">
+            <span class="edu-marker" aria-hidden="true"></span>
+            <p class="edu-period">2023 - PRESENT <span class="current-pill">CURRENT</span></p>
+            <div class="edu-info"><h3>Bachelor of Science in Computer Science</h3><p>Eclaro Academy</p></div>
+            <span class="edu-index" aria-hidden="true">01</span>
+          </article>
+          <article class="education-card">
+            <span class="edu-marker" aria-hidden="true"></span>
+            <p class="edu-period">2021 - 2023</p>
+            <div class="edu-info"><h3>Senior High School · STEM</h3><p>Science, Technology, Engineering, and Mathematics · Eclaro Academy</p></div>
+            <span class="edu-index" aria-hidden="true">02</span>
+          </article>
+          <article class="education-card">
+            <span class="edu-marker" aria-hidden="true"></span>
+            <p class="edu-period">2017 - 2021</p>
+            <div class="edu-info"><h3>Junior High School</h3><p>Batasan Hills National High School</p></div>
+            <span class="edu-index" aria-hidden="true">03</span>
+          </article>
+          <article class="education-card">
+            <span class="edu-marker" aria-hidden="true"></span>
+            <p class="edu-period">2011 - 2017</p>
+            <div class="edu-info"><h3>Elementary School</h3><p>San Diego Elementary School</p></div>
+            <span class="edu-index" aria-hidden="true">04</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-muted" id="skills" aria-labelledby="skills-title">
+        <div class="container">
+          <div class="section-heading section-heading-row">
+            <div><p class="kicker">03 / SKILLS</p><h2 id="skills-title">What I bring<span class="accent">.</span></h2></div>
+            <p class="section-aside">A growing toolkit, grounded in curiosity.</p>
+          </div>
+          <div class="skill-grid">
+            <article class="skill-card"><span class="skill-number">01</span><span class="skill-icon" aria-hidden="true">&lt;/&gt;</span><h3>Basic Programming</h3><p>Building foundational programming knowledge.</p><span class="skill-level">FOUNDATIONAL</span></article>
+            <article class="skill-card"><span class="skill-number">02</span><span class="skill-icon" aria-hidden="true">▤</span><h3>Basic Computer Skills</h3><p>Developing confidence with everyday computer tasks.</p><span class="skill-level">FOUNDATIONAL</span></article>
+            <article class="skill-card"><span class="skill-number">03</span><span class="skill-icon" aria-hidden="true">↗</span><h3>Fast Learner</h3><p>Motivated to learn unfamiliar concepts.</p><span class="skill-level">PERSONAL STRENGTH</span></article>
+            <article class="skill-card"><span class="skill-number">04</span><span class="skill-icon" aria-hidden="true">⟳</span><h3>Adaptability</h3><p>Open to changing situations and approaches.</p><span class="skill-level">PERSONAL STRENGTH</span></article>
+            <article class="skill-card"><span class="skill-number">05</span><span class="skill-icon" aria-hidden="true">⌕</span><h3>Problem-Solving</h3><p>Interested in working through challenges.</p><span class="skill-level">PERSONAL STRENGTH</span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="projects" aria-labelledby="projects-title">
+        <div class="projects-panel">
+          <div class="projects-top">
+            <div><p class="kicker">04 / SELECTED WORK</p><h2 id="projects-title">Projects<span class="accent">.</span></h2></div>
+            <span class="project-count">PORTFOLIO · IN PROGRESS</span>
+          </div>
+          <div class="projects-empty">
+            <div class="empty-symbol" aria-hidden="true">+</div>
+            <div><h3>Room for what's next.</h3><p>No verified projects are available to feature yet. This section is ready for real work as it's completed.</p><a class="projects-cta" href="#contact">Let's connect <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-muted" id="interests" aria-labelledby="interests-title">
+        <div class="container">
+          <div class="section-heading section-heading-row">
+            <div><p class="kicker">05 / OFF-SCREEN</p><h2 id="interests-title">Interests<span class="accent">.</span></h2></div>
+            <p class="section-aside">A few things I enjoy beyond the screen.</p>
+          </div>
+          <div class="interest-grid">
+            <div class="interest-card"><span aria-hidden="true">▤</span><p>Reading</p></div>
+            <div class="interest-card"><span aria-hidden="true">♫</span><p>Listening to Music</p></div>
+            <div class="interest-card"><span aria-hidden="true">▻</span><p>Watching Movies</p></div>
+            <div class="interest-card"><span aria-hidden="true">⌘</span><p>Playing Video Games</p></div>
+            <div class="interest-card"><span aria-hidden="true">⌕</span><p>Exploring Technology</p></div>
+            <div class="interest-card"><span aria-hidden="true">♨</span><p>Cooking</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="contact-heading">
+          <p class="kicker">06 / CONTACT</p>
+          <h2 id="contact-title">Have a good<br />question? <span>Let's talk.</span></h2>
+          <p>I'm open to a thoughtful conversation about learning, technology, and future opportunities.</p>
+          <div class="contact-details">
+            <a class="contact-detail" id="email-link" href="mailto:acostakyle24@gmail.com?subject=Inquiry%20from%20your%20portfolio%20website" aria-label="Email me at acostakyle24@gmail.com"><span class="contact-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3.5 7 8.5 6 8.5-6" /></svg></span><span><small>EMAIL</small><span id="email-text">acostakyle24@gmail.com</span></span><span class="contact-arrow" aria-hidden="true">↗</span></a>
+            <a class="contact-detail" id="phone-contact" href="tel:09836801589" aria-label="Call me at 09836801589"><span class="contact-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h3l1.5 4-2 1.3a12 12 0 0 0 5.7 5.7l1.3-2 4 1.5v3c0 1-.8 1.8-1.8 1.7C11.4 20.6 3.4 12.6 2.8 5.3 2.7 4.3 3.5 3.5 4.5 3.5Z" /></svg></span><span><small>PHONE</small><span id="phone-text">09836801589</span></span><span class="contact-arrow" aria-hidden="true">↗</span></a>
+            <div class="contact-place"><span class="contact-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" /><circle cx="12" cy="10" r="2.6" /></svg></span><span><small>LOCATION</small><span id="location-text">Quezon City, Philippines</span></span></div>
+          </div>
+        </div>
+        <form class="contact-form" id="contact-form" novalidate>
+          <p class="form-kicker">SEND A NOTE</p>
+          <label for="name">Your name</label><input id="name" name="name" type="text" autocomplete="name" placeholder="Name" required />
+          <label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+          <label for="subject">Subject</label><input id="subject" name="subject" type="text" autocomplete="off" placeholder="Subject" required />
+          <label for="message">Message</label><textarea id="message" name="message" rows="4" placeholder="What's on your mind?" required></textarea>
+          <button class="button button-primary form-submit" type="submit">Send message <span aria-hidden="true">↗</span></button>
+          <p class="form-feedback" id="form-feedback" role="status" aria-live="polite">All fields are required. Messages are sent directly from this website.</p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <a class="footer-brand" href="#home">K<span>.</span> <span>KYLE JOSHUA C. ACOSTA</span></a>
+        <p>&copy; <span id="year"></span> Kyle Joshua C. Acosta</p>
+        <a class="back-top" href="#home">BACK TO TOP <span aria-hidden="true">↑</span></a>
+      </div>
+    </footer>
+  </body>
+</html>

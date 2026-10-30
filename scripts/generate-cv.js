@@ -1,6 +1,6 @@
 // CV PDF Generator
 // Generates a professional, ATS-friendly one-page A4 CV PDF
-// Usage: node scripts/generate-cv.js
+// Usage: npm run generate:cv
 
 import PDFDocument from 'pdfkit';
 import fs from 'fs';
@@ -18,6 +18,7 @@ if (!fs.existsSync(outputDir)) {
 const doc = new PDFDocument({
   size: 'A4',
   margin: 50,
+  bufferPages: true,
   info: {
     Title: 'Kyle Joshua C. Acosta - CV',
     Author: 'Kyle Joshua C. Acosta',
@@ -29,7 +30,8 @@ const doc = new PDFDocument({
 });
 
 // Pipe output to file
-doc.pipe(fs.createWriteStream(outputPath));
+const output = fs.createWriteStream(outputPath);
+doc.pipe(output);
 
 // Color palette (professional, subtle accent)
 const colors = {
@@ -42,49 +44,68 @@ const colors = {
   background: '#ffffff',   // White background
 };
 
+const PAGE_LEFT = 50;
+const PAGE_RIGHT = 545;
+const PAGE_BOTTOM = doc.page.height - 50;
+
 // Helper functions
 const drawLine = (y, color = colors.line, thickness = 0.5) => {
-  doc.moveTo(50, y).lineTo(545, y).stroke(color, { lineWidth: thickness });
+  doc.moveTo(PAGE_LEFT, y).lineTo(PAGE_RIGHT, y).stroke(color, { lineWidth: thickness });
 };
 
 const addSectionHeader = (title, y) => {
-  doc.fontSize(12).font('Helvetica-Bold').fillColor(colors.primary).text(title, 50, y);
+  doc.fontSize(12).font('Helvetica-Bold').fillColor(colors.primary).text(title, PAGE_LEFT, y);
   drawLine(y + 16, colors.accent, 1.5);
-  return y + 24;
-};
-
-const addBodyText = (text, x, y, options = {}) => {
-  const {
-    font = 'Helvetica',
-    size = 10,
-    color = colors.text,
-    width = 495,
-    align = 'left',
-    lineGap = 2,
-  } = options;
-  doc.fontSize(size).font(font).fillColor(color).text(text, x, y, { width, align, lineGap });
-  return y + doc.heightOfString(text, { width, lineGap }) + 4;
+  return y + 22;
 };
 
 const addBulletPoint = (text, x, y, options = {}) => {
-  const { font = 'Helvetica', size = 9.5, color = colors.text, width = 475, indent = 60 } = options;
+  const { font = 'Helvetica', size = 9, color = colors.text, width = 475, indent = 60 } = options;
   doc.fontSize(size).font(font).fillColor(color);
-  // Bullet character
   doc.text('•', x, y, { width: 15, align: 'left' });
   doc.text(text, x + indent - x, y, { width: width - (indent - x), align: 'left', lineGap: 1.5 });
   return y + doc.heightOfString(text, { width: width - (indent - x), lineGap: 1.5 }) + 2;
+};
+
+const addLinkLine = (links, y) => {
+  if (!links.length) return y;
+
+  const size = 8;
+  const separator = '  •  ';
+  let cursor = PAGE_LEFT;
+
+  doc.fontSize(size).font('Helvetica');
+
+  links.forEach((link, index) => {
+    if (index > 0) {
+      doc.fillColor(colors.lightText).text(separator, cursor, y, { lineBreak: false });
+      cursor += doc.widthOfString(separator);
+    }
+
+    doc.fillColor(colors.lightText).text(link.label, cursor, y, { lineBreak: false });
+    cursor += doc.widthOfString(link.label);
+
+    doc.fillColor(colors.accent).text(link.display, cursor, y, { lineBreak: false, link: link.url });
+    cursor += doc.widthOfString(link.display);
+  });
+
+  if (cursor > PAGE_RIGHT + 0.5) {
+    throw new Error(`Project links exceed the page width by ${(cursor - PAGE_RIGHT).toFixed(1)}pt`);
+  }
+
+  return y + 9;
 };
 
 // ============ HEADER ============
 let y = 50;
 
 // Name
-doc.fontSize(24).font('Helvetica-Bold').fillColor(colors.primary).text('KYLE JOSHUA C. ACOSTA', 50, y);
-y += 30;
+doc.fontSize(24).font('Helvetica-Bold').fillColor(colors.primary).text('KYLE JOSHUA C. ACOSTA', PAGE_LEFT, y);
+y += 28;
 
 // Title/Role
-doc.fontSize(12).font('Helvetica').fillColor(colors.accent).text('Computer Science Student  |  Aspiring Software Developer', 50, y);
-y += 20;
+doc.fontSize(12).font('Helvetica').fillColor(colors.accent).text('Computer Science Student  |  Aspiring Software Developer', PAGE_LEFT, y);
+y += 17;
 
 // Contact info in a clean line
 doc.fontSize(9).font('Helvetica').fillColor(colors.lightText);
@@ -94,11 +115,11 @@ const contactItems = [
   '09836801589',
   'github.com/kyle12314124',
 ];
-doc.text(contactItems.join('  •  '), 50, y, { width: 495, align: 'center' });
-y += 22;
+doc.text(contactItems.join('  •  '), PAGE_LEFT, y, { width: PAGE_RIGHT - PAGE_LEFT, align: 'center' });
+y += 18;
 
 drawLine(y, colors.line, 1);
-y += 14;
+y += 12;
 
 // ============ EDUCATION ============
 y = addSectionHeader('EDUCATION', y);
@@ -108,7 +129,7 @@ const education = [
     degree: 'Bachelor of Science in Computer Science',
     school: 'Eclaro Academy',
     period: '2023 – Present',
-    details: 'Current student. Building foundational knowledge in programming, data structures, algorithms, and software development principles.',
+    details: 'Current student building foundational knowledge in programming, data structures, algorithms, and software development.',
   },
   {
     degree: 'Senior High School — STEM Strand',
@@ -130,16 +151,16 @@ const education = [
 
 education.forEach((edu, idx) => {
   // Period on left, degree on right
-  doc.fontSize(9.5).font('Helvetica').fillColor(colors.lightText).text(edu.period, 50, y, { width: 110, align: 'right' });
+  doc.fontSize(9.5).font('Helvetica').fillColor(colors.lightText).text(edu.period, PAGE_LEFT, y, { width: 110, align: 'right' });
   doc.fontSize(10).font('Helvetica-Bold').fillColor(colors.primary).text(edu.degree, 170, y, { width: 375 });
-  y += 14;
-  doc.fontSize(9.5).font('Helvetica').fillColor(colors.secondary).text(edu.school, 170, y, { width: 375 });
   y += 12;
+  doc.fontSize(9.5).font('Helvetica').fillColor(colors.secondary).text(edu.school, 170, y, { width: 375 });
+  y += 11;
   if (edu.details) {
-    doc.fontSize(9).font('Helvetica').fillColor(colors.text).text(edu.details, 170, y, { width: 375, lineGap: 1.5 });
-    y += doc.heightOfString(edu.details, { width: 375, lineGap: 1.5 }) + 4;
+    doc.fontSize(8.5).font('Helvetica').fillColor(colors.text).text(edu.details, 170, y, { width: 375, lineGap: 1 });
+    y += doc.heightOfString(edu.details, { width: 375, lineGap: 1 }) + 3;
   }
-  if (idx < education.length - 1) y += 6;
+  if (idx < education.length - 1) y += 5;
 });
 
 y += 6;
@@ -155,10 +176,11 @@ const skills = [
   { category: 'Desktop / Other', items: ['Python Tkinter', 'tkcalendar', 'Pillow (PIL)'] },
 ];
 
-skills.forEach((skill, idx) => {
-  doc.fontSize(9.5).font('Helvetica-Bold').fillColor(colors.secondary).text(skill.category + ':', 50, y, { width: 120 });
-  doc.fontSize(9.5).font('Helvetica').fillColor(colors.text).text(skill.items.join(', '), 170, y, { width: 375, lineGap: 1.5 });
-  y += doc.heightOfString(skill.items.join(', '), { width: 375, lineGap: 1.5 }) + 4;
+skills.forEach((skill) => {
+  const items = skill.items.join(', ');
+  doc.fontSize(9.5).font('Helvetica-Bold').fillColor(colors.secondary).text(skill.category + ':', PAGE_LEFT, y, { width: 120 });
+  doc.fontSize(9.5).font('Helvetica').fillColor(colors.text).text(items, 170, y, { width: 375, lineGap: 1 });
+  y += doc.heightOfString(items, { width: 375, lineGap: 1 }) + 3;
 });
 
 y += 6;
@@ -174,7 +196,7 @@ const strengths = [
 ];
 
 strengths.forEach((strength) => {
-  y = addBulletPoint(strength, 50, y);
+  y = addBulletPoint(strength, PAGE_LEFT, y, { size: 9 });
 });
 
 y += 6;
@@ -186,100 +208,108 @@ const projects = [
   {
     name: 'RoomCraft — 3D Interior Design Planner',
     type: 'Personal Project',
-    description: 'Browser-based 3D interior design application enabling users to arrange furniture, customize layouts, save designs locally, export projects as JSON, and capture screenshots.',
+    description: 'Browser-based 3D interior design planner for arranging furniture, saving layouts, exporting projects as JSON, and capturing screenshots.',
     technologies: 'React, TypeScript, Vite, Three.js, React Three Fiber, Drei, Zustand',
-    links: 'Live: roomcraft-3d-demo.pages.dev  •  GitHub: github.com/kyle12314124/roomcraft-3d-interior-planner',
+    links: [
+      { label: 'Live Demo:', display: 'https://roomcraft-3d-demo.pages.dev/', url: 'https://roomcraft-3d-demo.pages.dev/' },
+      { label: 'GitHub:', display: 'https://github.com/kyle12314124/roomcraft-3d-interior-planner', url: 'https://github.com/kyle12314124/roomcraft-3d-interior-planner' },
+    ],
   },
   {
     name: 'Healthcare Management System (HCMS)',
     type: 'Academic Project',
-    description: 'Desktop application prototype for healthcare management with user authentication, patient records, and appointment scheduling using JSON-based data storage.',
+    description: 'Desktop healthcare management prototype with authentication, patient records, and appointment scheduling using JSON storage.',
     technologies: 'Python, Tkinter, ttk, Pillow, tkcalendar',
-    links: 'N/A (Academic prototype)',
+    links: [],
   },
   {
     name: 'Automated Payroll System with Chatbot',
     type: 'Academic Project',
-    description: 'Web-based payroll system prototype featuring employee management, salary computation, and a chatbot interface for user assistance.',
+    description: 'Web-based payroll system prototype with employee management, salary computation, and a chatbot for user assistance.',
     technologies: 'HTML, CSS, JavaScript',
-    links: 'N/A (Academic prototype)',
+    links: [],
   },
   {
     name: 'Weather Advisory System',
     type: 'Academic Project',
-    description: 'System providing weather-related advisory information with location-based alerts and forecast display.',
-    technologies: 'HTML, CSS, JavaScript (verify implementation details)',
-    links: 'N/A (Academic prototype)',
+    description: 'Responsive weather dashboard with real-time weather information, forecasts, interactive charts, saved locations, and weather advisories.',
+    technologies: 'React, TypeScript, Vite, Open-Meteo API',
+    links: [
+      { label: 'Live Demo:', display: 'https://weather-advisory-system.pages.dev/', url: 'https://weather-advisory-system.pages.dev/' },
+      { label: 'GitHub:', display: 'https://github.com/kyle12314124/weather-advisory-system', url: 'https://github.com/kyle12314124/weather-advisory-system' },
+    ],
   },
   {
     name: 'Personal CV Portfolio Website',
     type: 'Personal Project',
-    description: 'Responsive personal portfolio website presenting background, technical skills, projects, and contact information with modern animations and accessibility features.',
+    description: 'Responsive personal portfolio presenting background, skills, projects, and contact information with accessible animations.',
     technologies: 'Vite, TypeScript, HTML, CSS, JavaScript',
-    links: 'Live: cvnikyle.netlify.app  •  GitHub: github.com/kyle12314124/cv-for-future',
+    links: [
+      { label: 'Live Demo:', display: 'https://cvnikyle.netlify.app/', url: 'https://cvnikyle.netlify.app/' },
+      { label: 'GitHub:', display: 'https://github.com/kyle12314124/cv-for-future', url: 'https://github.com/kyle12314124/cv-for-future' },
+    ],
   },
 ];
 
 projects.forEach((project, idx) => {
-  // Check if we need a new page (shouldn't happen for one page, but safety check)
-  if (y > 720) {
-    doc.addPage();
-    y = 50;
-  }
-
-  // Project name and type
-  doc.fontSize(10).font('Helvetica-Bold').fillColor(colors.primary).text(project.name, 50, y, { width: 495 });
-  y += 14;
-
-  // Type and description
-  doc.fontSize(9).font('Helvetica-Oblique').fillColor(colors.lightText).text(project.type, 50, y, { width: 495 });
+  // Project name on the left, type on the right
+  doc.fontSize(10).font('Helvetica-Bold').fillColor(colors.primary).text(project.name, PAGE_LEFT, y, { width: 360 });
+  doc.fontSize(8).font('Helvetica-Oblique').fillColor(colors.lightText).text(project.type, PAGE_LEFT, y, { width: PAGE_RIGHT - PAGE_LEFT, align: 'right' });
   y += 12;
 
-  doc.fontSize(9).font('Helvetica').fillColor(colors.text).text(project.description, 50, y, { width: 495, lineGap: 1.5 });
-  y += doc.heightOfString(project.description, { width: 495, lineGap: 1.5 }) + 4;
+  doc.fontSize(8.5).font('Helvetica').fillColor(colors.text).text(project.description, PAGE_LEFT, y, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1 });
+  y += doc.heightOfString(project.description, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1 }) + 2;
 
   // Technologies
-  doc.fontSize(9).font('Helvetica-Bold').fillColor(colors.secondary).text('Technologies: ', 50, y, { continued: true });
+  doc.fontSize(9).font('Helvetica-Bold').fillColor(colors.secondary).text('Technologies: ', PAGE_LEFT, y, { continued: true });
   doc.font('Helvetica').fillColor(colors.text).text(project.technologies);
   y += 13;
 
   // Links
-  if (project.links !== 'N/A (Academic prototype)') {
-    doc.fontSize(8.5).font('Helvetica').fillColor(colors.accent).text(project.links, 50, y, { width: 495 });
-    y += 12;
-  }
+  y = addLinkLine(project.links, y);
 
   if (idx < projects.length - 1) {
-    y += 6;
+    y += 3;
     drawLine(y, colors.line, 0.3);
-    y += 8;
+    y += 3;
   }
 });
 
-y += 10;
+y += 5;
 
 // ============ FOOTER ============
+const footerText = 'References available upon request.  This CV was generated from the portfolio source code at github.com/kyle12314124/cv-for-future';
+const footerHeight = doc.heightOfString(footerText, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1.5 });
+
+if (y + 5 + footerHeight > PAGE_BOTTOM) {
+  throw new Error(`CV content overflows the one-page layout by ${(y + 5 + footerHeight - PAGE_BOTTOM).toFixed(1)}pt`);
+}
+
 drawLine(y, colors.line, 0.5);
-y += 8;
-doc.fontSize(8).font('Helvetica').fillColor(colors.lightText).text(
-  'References available upon request.  This CV was generated from the portfolio source code at github.com/kyle12314124/cv-for-future',
-  50,
-  y,
-  { width: 495, align: 'center' }
-);
+y += 5;
+doc.fontSize(8).font('Helvetica').fillColor(colors.lightText).text(footerText, PAGE_LEFT, y, {
+  width: PAGE_RIGHT - PAGE_LEFT,
+  align: 'center',
+  lineGap: 1.5,
+});
 
 // Finalize PDF
+const pageCount = doc.bufferedPageRange().count;
+if (pageCount !== 1) {
+  throw new Error(`Expected a one-page CV, but generated ${pageCount} pages`);
+}
+
 doc.end();
 
-doc.on('end', () => {
+output.on('finish', () => {
   const stats = fs.statSync(outputPath);
   console.log(`✅ CV PDF generated successfully!`);
   console.log(`   Path: ${outputPath}`);
   console.log(`   Size: ${(stats.size / 1024).toFixed(1)} KB`);
-  console.log(`   Pages: 1 (A4)`);
+  console.log(`   Pages: ${pageCount} (A4)`);
 });
 
-doc.on('error', (err) => {
-  console.error('❌ Error generating PDF:', err);
+output.on('error', (err) => {
+  console.error('❌ Error writing CV PDF:', err);
   process.exit(1);
 });

@@ -8,6 +8,16 @@ import path from 'path';
 
 const outputPath = path.resolve('public/cv/Kyle-Joshua-Acosta-CV.pdf');
 
+// Optional profile photo. Drop a JPEG or PNG at one of these paths to include it.
+// PDFKit embeds JPEG and PNG only, so other formats must be converted first.
+const photoCandidates = ['assets/profile-photo.jpg', 'assets/profile-photo.jpeg', 'assets/profile-photo.png'];
+const photoPath = photoCandidates.map((file) => path.resolve(file)).find((file) => fs.existsSync(file)) ?? null;
+
+if (!photoPath) {
+  console.warn('⚠️  No profile photo found — generating the CV without one.');
+  console.warn(`   Add a JPEG/PNG at ${photoCandidates[0]} and re-run to include it.`);
+}
+
 // Ensure output directory exists
 const outputDir = path.dirname(outputPath);
 if (!fs.existsSync(outputDir)) {
@@ -51,6 +61,26 @@ const PAGE_BOTTOM = doc.page.height - 50;
 // Helper functions
 const drawLine = (y, color = colors.line, thickness = 0.5) => {
   doc.moveTo(PAGE_LEFT, y).lineTo(PAGE_RIGHT, y).stroke(color, { lineWidth: thickness });
+};
+
+// Draws the photo cropped to a square, clipped to a circle, with a hairline ring.
+const drawPhoto = (file, x, y, size) => {
+  const image = doc.openImage(file);
+  const scale = Math.max(size / image.width, size / image.height);
+  const width = image.width * scale;
+  const height = image.height * scale;
+  const cx = x + size / 2;
+  const cy = y + size / 2;
+  const radius = size / 2;
+
+  doc.save();
+  doc.circle(cx, cy, radius).clip();
+  doc.image(file, cx - width / 2, cy - height / 2, { width, height });
+  doc.restore();
+
+  doc.save();
+  doc.circle(cx, cy, radius).lineWidth(1).strokeColor(colors.line).stroke();
+  doc.restore();
 };
 
 const addSectionHeader = (title, y) => {
@@ -97,26 +127,33 @@ const addLinkLine = (links, y) => {
 };
 
 // ============ HEADER ============
+const PHOTO_SIZE = 70;
+const PHOTO_GAP = 16;
+const headerTextWidth = photoPath ? PAGE_RIGHT - PAGE_LEFT - PHOTO_SIZE - PHOTO_GAP : PAGE_RIGHT - PAGE_LEFT;
+
 let y = 50;
 
 // Name
-doc.fontSize(24).font('Helvetica-Bold').fillColor(colors.primary).text('KYLE JOSHUA C. ACOSTA', PAGE_LEFT, y);
-y += 28;
+doc.fontSize(24).font('Helvetica-Bold').fillColor(colors.primary).text('KYLE JOSHUA C. ACOSTA', PAGE_LEFT, y, { width: headerTextWidth });
+y += 26;
 
 // Title/Role
-doc.fontSize(12).font('Helvetica').fillColor(colors.accent).text('Computer Science Student  |  Aspiring Software Developer', PAGE_LEFT, y);
-y += 17;
+doc.fontSize(12).font('Helvetica').fillColor(colors.accent).text('Computer Science Student  |  Aspiring Software Developer', PAGE_LEFT, y, { width: headerTextWidth });
+y += 15;
 
 // Contact info in a clean line
 doc.fontSize(9).font('Helvetica').fillColor(colors.lightText);
-const contactItems = [
-  'Quezon City, Philippines',
-  'acostakyle24@gmail.com',
-  '09836801589',
-  'github.com/kyle12314124',
-];
-doc.text(contactItems.join('  •  '), PAGE_LEFT, y, { width: PAGE_RIGHT - PAGE_LEFT, align: 'center' });
-y += 18;
+doc.text('Quezon City, Philippines  •  acostakyle24@gmail.com  •  09836801589', PAGE_LEFT, y, { width: headerTextWidth });
+y += 11;
+doc.fillColor(colors.accent).text('github.com/kyle12314124', PAGE_LEFT, y, {
+  width: headerTextWidth,
+  link: 'https://github.com/kyle12314124',
+});
+y += 13;
+
+// Photo, top-right
+if (photoPath) drawPhoto(photoPath, PAGE_RIGHT - PHOTO_SIZE, 50, PHOTO_SIZE);
+y = Math.max(y, 50 + (photoPath ? PHOTO_SIZE : 0) + 8);
 
 drawLine(y, colors.line, 1);
 y += 12;
@@ -158,12 +195,12 @@ education.forEach((edu, idx) => {
   y += 11;
   if (edu.details) {
     doc.fontSize(8.5).font('Helvetica').fillColor(colors.text).text(edu.details, 170, y, { width: 375, lineGap: 1 });
-    y += doc.heightOfString(edu.details, { width: 375, lineGap: 1 }) + 3;
+    y += doc.heightOfString(edu.details, { width: 375, lineGap: 1 }) + 2;
   }
-  if (idx < education.length - 1) y += 5;
+  if (idx < education.length - 1) y += 4;
 });
 
-y += 6;
+y += 5;
 
 // ============ TECHNICAL SKILLS ============
 y = addSectionHeader('TECHNICAL SKILLS', y);
@@ -180,10 +217,10 @@ skills.forEach((skill) => {
   const items = skill.items.join(', ');
   doc.fontSize(9.5).font('Helvetica-Bold').fillColor(colors.secondary).text(skill.category + ':', PAGE_LEFT, y, { width: 120 });
   doc.fontSize(9.5).font('Helvetica').fillColor(colors.text).text(items, 170, y, { width: 375, lineGap: 1 });
-  y += doc.heightOfString(items, { width: 375, lineGap: 1 }) + 3;
+  y += doc.heightOfString(items, { width: 375, lineGap: 1 }) + 2;
 });
 
-y += 6;
+y += 5;
 
 // ============ PERSONAL STRENGTHS ============
 y = addSectionHeader('PERSONAL STRENGTHS', y);
@@ -199,7 +236,7 @@ strengths.forEach((strength) => {
   y = addBulletPoint(strength, PAGE_LEFT, y, { size: 9 });
 });
 
-y += 6;
+y += 5;
 
 // ============ PROJECTS ============
 y = addSectionHeader('SELECTED PROJECTS', y);
@@ -269,20 +306,21 @@ projects.forEach((project, idx) => {
   y = addLinkLine(project.links, y);
 
   if (idx < projects.length - 1) {
-    y += 3;
+    y += 2.5;
     drawLine(y, colors.line, 0.3);
-    y += 3;
+    y += 2.5;
   }
 });
 
-y += 5;
+y += 4;
 
 // ============ FOOTER ============
 const footerText = 'References available upon request.  This CV was generated from the portfolio source code at github.com/kyle12314124/cv-for-future';
 const footerHeight = doc.heightOfString(footerText, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1.5 });
+const slack = PAGE_BOTTOM - (y + 5 + footerHeight);
 
-if (y + 5 + footerHeight > PAGE_BOTTOM) {
-  throw new Error(`CV content overflows the one-page layout by ${(y + 5 + footerHeight - PAGE_BOTTOM).toFixed(1)}pt`);
+if (slack < 0) {
+  throw new Error(`CV content overflows the one-page layout by ${(-slack).toFixed(1)}pt`);
 }
 
 drawLine(y, colors.line, 0.5);
@@ -307,6 +345,7 @@ output.on('finish', () => {
   console.log(`   Path: ${outputPath}`);
   console.log(`   Size: ${(stats.size / 1024).toFixed(1)} KB`);
   console.log(`   Pages: ${pageCount} (A4)`);
+  console.log(`   Space left at bottom: ${slack.toFixed(1)}pt`);
 });
 
 output.on('error', (err) => {

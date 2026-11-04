@@ -23,7 +23,7 @@ if (!contactForm || !formFeedback || !submitButton) {
       submitButton.innerHTML = 'Sending <span aria-hidden="true">⟳</span>';
       submitButton.setAttribute('aria-busy', 'true');
     } else {
-      submitButton.innerHTML = 'Prepare email <span aria-hidden="true">↗</span>';
+      submitButton.innerHTML = 'Send message <span aria-hidden="true">↗</span>';
       submitButton.removeAttribute('aria-busy');
     }
   };

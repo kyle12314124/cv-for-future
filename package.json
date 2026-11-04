@@ -1,7 +1,7 @@
 {
   "name": "kyle-acosta-portfolio",
   "version": "1.0.0",
-  "description": "Personal portfolio of Kyle Joshua C. Acosta - Computer Science Student",
+  "description": "Personal portfolio of Kyle Joshua C. Acosta - Computer Science Student and Aspiring Web Developer",
   "type": "module",
   "scripts": {
     "dev": "vite",

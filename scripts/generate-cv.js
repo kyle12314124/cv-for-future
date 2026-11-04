@@ -32,8 +32,8 @@ const doc = new PDFDocument({
   info: {
     Title: 'Kyle Joshua C. Acosta - CV',
     Author: 'Kyle Joshua C. Acosta',
-    Subject: 'Professional CV for IT Internship and Junior Developer Roles',
-    Keywords: 'Computer Science, Software Development, Web Development, TypeScript, React, Python',
+    Subject: 'Professional CV for Web Development Internship and Junior Frontend Roles',
+    Keywords: 'Computer Science, Web Development, Frontend, HTML, CSS, JavaScript, TypeScript, React, Node.js, REST APIs, Git, GitHub',
     Producer: 'PDFKit',
     Creator: 'Kyle Joshua C. Acosta Portfolio',
   },
@@ -138,7 +138,7 @@ doc.fontSize(24).font('Helvetica-Bold').fillColor(colors.primary).text('KYLE JOS
 y += 26;
 
 // Title/Role
-doc.fontSize(12).font('Helvetica').fillColor(colors.accent).text('Computer Science Student  |  Aspiring Software Developer', PAGE_LEFT, y, { width: headerTextWidth });
+doc.fontSize(12).font('Helvetica').fillColor(colors.accent).text('Computer Science Student  |  Aspiring Web Developer', PAGE_LEFT, y, { width: headerTextWidth });
 y += 15;
 
 // Contact info in a clean line
@@ -166,7 +166,7 @@ const education = [
     degree: 'Bachelor of Science in Computer Science',
     school: 'Eclaro Academy',
     period: '2023 – Present',
-    details: 'Current student building foundational knowledge in programming, data structures, algorithms, and software development.',
+    details: 'Current student building foundational knowledge in programming, data structures, algorithms, and web development.',
   },
   {
     degree: 'Senior High School — STEM Strand',
@@ -206,11 +206,11 @@ y += 5;
 y = addSectionHeader('TECHNICAL SKILLS', y);
 
 const skills = [
-  { category: 'Languages', items: ['JavaScript (ES6+)', 'TypeScript', 'Python', 'HTML5', 'CSS3'] },
-  { category: 'Frameworks & Libraries', items: ['React', 'React Three Fiber', 'Drei', 'Three.js', 'Vite', 'Node.js (basic)'] },
-  { category: 'Tools & Practices', items: ['Git', 'GitHub', 'npm', 'VS Code', 'REST APIs', 'JSON', 'Responsive Design'] },
-  { category: 'State Management', items: ['Zustand', 'React Context', 'React Hooks'] },
-  { category: 'Desktop / Other', items: ['Python Tkinter', 'tkcalendar', 'Pillow (PIL)'] },
+  { category: 'Frontend', items: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'TypeScript', 'Responsive Design'] },
+  { category: 'Frameworks & Libraries', items: ['React', 'React Three Fiber', 'Drei', 'Three.js', 'Vite'] },
+  { category: 'APIs & State', items: ['REST APIs', 'JSON', 'Zustand', 'React Context', 'React Hooks'] },
+  { category: 'Tools & Workflow', items: ['Git', 'GitHub', 'npm', 'Node.js (basic)', 'VS Code'] },
+  { category: 'Desktop / Other', items: ['Python', 'Python Tkinter', 'tkcalendar', 'Pillow (PIL)'] },
 ];
 
 skills.forEach((skill) => {
@@ -245,7 +245,7 @@ const projects = [
   {
     name: 'RoomCraft — 3D Interior Design Planner',
     type: 'Personal Project',
-    description: 'Browser-based 3D interior design planner for arranging furniture, saving layouts, exporting projects as JSON, and capturing screenshots.',
+    description: 'Browser-based 3D interior design planner built with React and TypeScript for arranging furniture, saving layouts, exporting projects as JSON, and capturing screenshots.',
     technologies: 'React, TypeScript, Vite, Three.js, React Three Fiber, Drei, Zustand',
     links: [
       { label: 'Live Demo:', display: 'https://roomcraft-3d-demo.pages.dev/', url: 'https://roomcraft-3d-demo.pages.dev/' },
@@ -253,23 +253,16 @@ const projects = [
     ],
   },
   {
-    name: 'Healthcare Management System (HCMS)',
-    type: 'Academic Project',
-    description: 'Desktop healthcare management prototype with authentication, patient records, and appointment scheduling using JSON storage.',
-    technologies: 'Python, Tkinter, ttk, Pillow, tkcalendar',
-    links: [],
-  },
-  {
     name: 'Automated Payroll System with Chatbot',
     type: 'Academic Project',
-    description: 'Web-based payroll system prototype with employee management, salary computation, and a chatbot for user assistance.',
+    description: 'Web-based payroll system with a JavaScript interface for employee management, salary computation, and a chatbot.',
     technologies: 'HTML, CSS, JavaScript',
     links: [],
   },
   {
     name: 'Weather Advisory System',
     type: 'Academic Project',
-    description: 'Responsive weather dashboard with real-time weather information, forecasts, interactive charts, saved locations, and weather advisories.',
+    description: 'Responsive weather dashboard built with React and TypeScript, using the Open-Meteo REST API for live data, forecasts, interactive charts, and saved locations.',
     technologies: 'React, TypeScript, Vite, Open-Meteo API',
     links: [
       { label: 'Live Demo:', display: 'https://weather-advisory-system.pages.dev/', url: 'https://weather-advisory-system.pages.dev/' },
@@ -279,12 +272,19 @@ const projects = [
   {
     name: 'Personal CV Portfolio Website',
     type: 'Personal Project',
-    description: 'Responsive personal portfolio presenting background, skills, projects, and contact information with accessible animations.',
+    description: 'Responsive, accessible frontend built with TypeScript and Vite, with scroll animations and a working contact form.',
     technologies: 'Vite, TypeScript, HTML, CSS, JavaScript',
     links: [
       { label: 'Live Demo:', display: 'https://cvnikyle.netlify.app/', url: 'https://cvnikyle.netlify.app/' },
       { label: 'GitHub:', display: 'https://github.com/kyle12314124/cv-for-future', url: 'https://github.com/kyle12314124/cv-for-future' },
     ],
+  },
+  {
+    name: 'Healthcare Management System (HCMS)',
+    type: 'Academic Project',
+    description: 'Desktop application with a Tkinter interface for authentication, patient records, and appointment scheduling using JSON storage.',
+    technologies: 'Python, Tkinter, ttk, Pillow, tkcalendar',
+    links: [],
   },
 ];
 
@@ -316,6 +316,9 @@ y += 4;
 
 // ============ FOOTER ============
 const footerText = 'References available upon request.  This CV was generated from the portfolio source code at github.com/kyle12314124/cv-for-future';
+// Set the font explicitly: heightOfString uses the current font, and the last
+// project may leave it at a different size depending on whether it has links.
+doc.fontSize(8).font('Helvetica');
 const footerHeight = doc.heightOfString(footerText, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1.5 });
 const slack = PAGE_BOTTOM - (y + 5 + footerHeight);
 

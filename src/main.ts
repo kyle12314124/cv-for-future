@@ -3,6 +3,7 @@ import './styles/main.css';
 import './scripts/navigation';
 import './scripts/profile-video';
 import './scripts/scroll-reveal';
+import './scripts/projects';
 import './scripts/cv-download';
 import './scripts/contact-form';
 import './scripts/config';

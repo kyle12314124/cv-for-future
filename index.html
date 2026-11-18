@@ -128,14 +128,31 @@
         <div class="container">
           <div class="section-heading section-heading-row">
             <div><p class="kicker">03 / SKILLS</p><h2 id="skills-title">What I bring<span class="accent">.</span></h2></div>
-            <p class="section-aside">A frontend toolkit, built through hands-on projects.</p>
+            <p class="section-aside">Languages, frameworks, systems tools, and an AI-assisted workflow.</p>
           </div>
           <div class="skill-grid">
-            <article class="skill-card"><span class="skill-number">01</span><span class="skill-icon" aria-hidden="true">&lt;/&gt;</span><h3>HTML &amp; CSS</h3><p>Semantic markup, modern layout, and responsive design across screen sizes.</p><span class="skill-level">CORE</span></article>
-            <article class="skill-card"><span class="skill-number">02</span><span class="skill-icon" aria-hidden="true">{ }</span><h3>JavaScript &amp; TypeScript</h3><p>Interactive UI behaviour and typed, maintainable application logic.</p><span class="skill-level">CORE</span></article>
-            <article class="skill-card"><span class="skill-number">03</span><span class="skill-icon" aria-hidden="true">◈</span><h3>React</h3><p>Component-based interfaces with hooks and state management.</p><span class="skill-level">CORE</span></article>
-            <article class="skill-card"><span class="skill-number">04</span><span class="skill-icon" aria-hidden="true">⇄</span><h3>Node.js &amp; REST APIs</h3><p>npm tooling and Vite builds, plus REST API and JSON data handling.</p><span class="skill-level">FOUNDATIONAL</span></article>
-            <article class="skill-card"><span class="skill-number">05</span><span class="skill-icon" aria-hidden="true">⑂</span><h3>Git &amp; GitHub</h3><p>Version control, branching, and publishing projects to GitHub.</p><span class="skill-level">WORKFLOW</span></article>
+            <article class="skill-card"><span class="skill-number">01</span><span class="skill-icon" aria-hidden="true">&lt;/&gt;</span><h3>Languages</h3><p>HTML5, CSS3, JavaScript, TypeScript, Python, and C++ used across web and systems projects.</p><span class="skill-level">CORE</span></article>
+            <article class="skill-card"><span class="skill-number">02</span><span class="skill-icon" aria-hidden="true">◈</span><h3>Frontend Development</h3><p>React, Vite, Tailwind CSS, Three.js, and React Three Fiber for interactive interfaces.</p><span class="skill-level">CORE</span></article>
+            <article class="skill-card"><span class="skill-number">03</span><span class="skill-icon" aria-hidden="true">⇄</span><h3>Backend &amp; APIs</h3><p>Node.js tooling, REST APIs, Open-Meteo, Formspree, and JSON data handling.</p><span class="skill-level">FOUNDATIONAL</span></article>
+            <article class="skill-card"><span class="skill-number">04</span><span class="skill-icon" aria-hidden="true">⌗</span><h3>Systems Programming</h3><p>Windows API, ctypes, Tkinter, CMake, Zydis, and binary analysis in C++ and Python.</p><span class="skill-level">EXPERIMENTAL</span></article>
+            <article class="skill-card"><span class="skill-number">05</span><span class="skill-icon" aria-hidden="true">⑂</span><h3>Tools &amp; Platforms</h3><p>Git, GitHub, VS Code, npm, and Cloudflare Pages for version control and deployment.</p><span class="skill-level">WORKFLOW</span></article>
+          </div>
+
+          <div class="ai-workflow">
+            <div class="ai-workflow-head">
+              <p class="form-kicker">AI-ASSISTED DEVELOPMENT</p>
+              <h3>OpenCode &amp; Claude Code</h3>
+              <p>I use both AI coding agents in my development workflow, reviewing and understanding the code they help produce rather than treating their output as final.</p>
+            </div>
+            <ul class="ai-workflow-list" aria-label="How I use AI coding agents">
+              <li><strong>AI-assisted programming</strong><span>Planning features and working through implementation with an agent.</span></li>
+              <li><strong>Code generation</strong><span>Scaffolding components, utilities, and project structure.</span></li>
+              <li><strong>Debugging</strong><span>Tracing errors and narrowing down faulty logic faster.</span></li>
+              <li><strong>Code refactoring</strong><span>Cleaning up structure and improving readability.</span></li>
+              <li><strong>Project implementation</strong><span>Building features across my web and systems projects.</span></li>
+              <li><strong>Code analysis</strong><span>Reviewing unfamiliar code and understanding how it works.</span></li>
+              <li><strong>Workflow automation</strong><span>Speeding up repetitive development and setup tasks.</span></li>
+            </ul>
           </div>
         </div>
       </section>
@@ -144,9 +161,18 @@
         <div class="projects-panel">
           <div class="projects-top">
             <div><p class="kicker">04 / SELECTED WORK</p><h2 id="projects-title">Projects<span class="accent">.</span></h2></div>
-            <span class="project-count">5 PROJECTS</span>
+            <span class="project-count" id="project-count">5 PROJECTS</span>
           </div>
-          <div class="project-grid">
+          <div class="project-tabs" role="tablist" aria-label="Project categories">
+            <button class="project-tab is-active" id="tab-web" type="button" role="tab" aria-selected="true" aria-controls="panel-web" tabindex="0">
+              Web Development <span class="tab-count">5</span>
+            </button>
+            <button class="project-tab" id="tab-systems" type="button" role="tab" aria-selected="false" aria-controls="panel-systems" tabindex="-1">
+              Systems &amp; Experiments <span class="tab-count">2</span>
+            </button>
+          </div>
+          <div class="project-panel" id="panel-web" role="tabpanel" aria-labelledby="tab-web" tabindex="0">
+            <div class="project-grid">
             <!-- Featured Project: RoomCraft -->
             <article class="project-card project-featured">
               <div class="project-badge" aria-label="Featured project">FEATURED</div>
@@ -257,6 +283,84 @@
                 <span class="tech-tag">JSON</span>
               </div>
             </article>
+            </div>
+          </div>
+
+          <div class="project-panel" id="panel-systems" role="tabpanel" aria-labelledby="tab-systems" tabindex="0" hidden>
+            <div class="project-grid project-grid-systems">
+              <!-- Systems & Experiments: CS2 -->
+              <article class="project-card project-card-system">
+                <figure class="project-media">
+                  <img src="/projects/cs2-systems-experiment.png" alt="CS2 Systems Experiment overlay shown over the Counter-Strike 2 map selection screen" width="1280" height="720" loading="lazy" decoding="async" />
+                  <figcaption>SYSTEMS PREVIEW</figcaption>
+                </figure>
+                <header class="project-header">
+                  <h3 class="project-name">CS2 Systems Experiment</h3>
+                  <span class="project-type">Systems &amp; Experiments</span>
+                </header>
+                <p class="project-description">A read-only Windows overlay built in Python with ctypes and the Windows API. It reads the CS2 process with PROCESS_VM_READ, walks entity and bone data, and draws a transparent click-through Tkinter overlay.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">ctypes</span>
+                  <span class="tech-tag">Windows API</span>
+                  <span class="tech-tag">Tkinter</span>
+                  <span class="tech-tag">ReadProcessMemory</span>
+                </div>
+                <footer class="project-links">
+                  <a class="project-link project-link-github" href="https://github.com/kyle12314124/cheatnigg4z" target="_blank" rel="noopener noreferrer" aria-label="View the CS2 Systems Experiment repository on GitHub in a new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .7a11.3 11.3 0 0 0-3.57 22.02c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.24 1.16-3.03-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.16a10.7 10.7 0 0 1 5.64 0c2.15-1.46 3.1-1.16 3.1-1.16.61 1.55.23 2.7.11 2.98.72.79 1.16 1.8 1.16 3.03 0 4.33-2.64 5.29-5.15 5.56.4.35.76 1.04.76 2.1v3.11c0 .3.2.65.78.54A11.3 11.3 0 0 0 12 .7Z"/></svg>
+                    View Repository
+                  </a>
+                  <button class="project-link project-details" type="button"
+                    data-title="CS2 Systems Experiment"
+                    data-description="A read-only Windows overlay built in Python with ctypes and the Windows API. It reads the CS2 process with PROCESS_VM_READ, walks entity and bone data, and draws a transparent click-through Tkinter overlay."
+                    data-tech="Python, ctypes, Windows API, Tkinter, ReadProcessMemory"
+                    data-image="/projects/cs2-systems-experiment.png"
+                    data-image-alt="CS2 Systems Experiment overlay shown over the Counter-Strike 2 map selection screen"
+                    data-repo="https://github.com/kyle12314124/cheatnigg4z">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg>
+                    Project Details
+                  </button>
+                </footer>
+              </article>
+
+              <!-- Systems & Experiments: Blood Strike -->
+              <article class="project-card project-card-system">
+                <figure class="project-media">
+                  <img src="/projects/blood-strike-systems-experiment.png" alt="Blood Strike Systems Experiment overlay menu shown over the Blood Strike lobby" width="1280" height="720" loading="lazy" decoding="async" />
+                  <figcaption>SYSTEMS PREVIEW</figcaption>
+                </figure>
+                <header class="project-header">
+                  <h3 class="project-name">Blood Strike Systems Experiment</h3>
+                  <span class="project-type">Systems &amp; Experiments</span>
+                </header>
+                <p class="project-description">A C++ offset dumper for the Blood Strike Steam client. It snapshots the running process or a PE file, finds engine functions with byte signatures, and decodes instructions with Zydis to write a generated offsets header.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">C++</span>
+                  <span class="tech-tag">Windows API</span>
+                  <span class="tech-tag">CMake</span>
+                  <span class="tech-tag">Zydis</span>
+                  <span class="tech-tag">PE Analysis</span>
+                  <span class="tech-tag">Reverse Engineering</span>
+                </div>
+                <footer class="project-links">
+                  <a class="project-link project-link-github" href="https://github.com/kyle12314124/cheatnigg4z2" target="_blank" rel="noopener noreferrer" aria-label="View the Blood Strike Systems Experiment repository on GitHub in a new tab">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .7a11.3 11.3 0 0 0-3.57 22.02c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.24 1.16-3.03-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.16a10.7 10.7 0 0 1 5.64 0c2.15-1.46 3.1-1.16 3.1-1.16.61 1.55.23 2.7.11 2.98.72.79 1.16 1.8 1.16 3.03 0 4.33-2.64 5.29-5.15 5.56.4.35.76 1.04.76 2.1v3.11c0 .3.2.65.78.54A11.3 11.3 0 0 0 12 .7Z"/></svg>
+                    View Repository
+                  </a>
+                  <button class="project-link project-details" type="button"
+                    data-title="Blood Strike Systems Experiment"
+                    data-description="A C++ offset dumper for the Blood Strike Steam client. It snapshots the running process or a PE file, finds engine functions with byte signatures, and decodes instructions with Zydis to write a generated offsets header."
+                    data-tech="C++, Windows API, CMake, Zydis, PE Analysis, Reverse Engineering"
+                    data-image="/projects/blood-strike-systems-experiment.png"
+                    data-image-alt="Blood Strike Systems Experiment overlay menu shown over the Blood Strike lobby"
+                    data-repo="https://github.com/kyle12314124/cheatnigg4z2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg>
+                    Project Details
+                  </button>
+                </footer>
+              </article>
+            </div>
           </div>
         </div>
       </section>
@@ -300,6 +404,29 @@
         </form>
       </section>
     </main>
+
+    <div class="project-modal" id="project-modal" hidden>
+      <div class="project-modal-backdrop" data-close-modal></div>
+      <div class="project-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" aria-describedby="project-modal-description">
+        <button class="project-modal-close" type="button" data-close-modal aria-label="Close project details">
+          <span aria-hidden="true">×</span>
+        </button>
+        <div class="project-modal-media">
+          <img id="project-modal-image" src="" alt="" width="1280" height="720" />
+        </div>
+        <div class="project-modal-content">
+          <p class="project-modal-kicker">SYSTEMS &amp; EXPERIMENTS</p>
+          <h3 id="project-modal-title"></h3>
+          <p class="project-modal-description" id="project-modal-description"></p>
+          <div class="project-modal-tech" id="project-modal-tech" aria-label="Technologies used"></div>
+          <div class="project-modal-actions">
+            <a class="button button-primary" id="project-modal-repo" href="#" target="_blank" rel="noopener noreferrer">View Repository <span aria-hidden="true">↗</span></a>
+            <button class="button button-secondary" type="button" data-close-modal>Close</button>
+          </div>
+          <p class="project-modal-note">Repository opens in a new tab.</p>
+        </div>
+      </div>
+    </div>
 
     <footer class="footer">
       <div class="container footer-inner">

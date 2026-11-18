@@ -33,7 +33,7 @@ const doc = new PDFDocument({
     Title: 'Kyle Joshua C. Acosta - CV',
     Author: 'Kyle Joshua C. Acosta',
     Subject: 'Professional CV for Web Development Internship and Junior Frontend Roles',
-    Keywords: 'Computer Science, Web Development, Frontend, HTML, CSS, JavaScript, TypeScript, React, Node.js, REST APIs, Git, GitHub',
+    Keywords: 'Computer Science, Web Development, Frontend, HTML5, CSS3, JavaScript, TypeScript, Python, C++, React, Vite, Tailwind CSS, Three.js, Node.js, REST APIs, Windows API, CMake, Zydis, Binary Analysis, Reverse Engineering, OpenCode, Claude Code, AI-Assisted Development',
     Producer: 'PDFKit',
     Creator: 'Kyle Joshua C. Acosta Portfolio',
   },
@@ -86,7 +86,7 @@ const drawPhoto = (file, x, y, size) => {
 const addSectionHeader = (title, y) => {
   doc.fontSize(12).font('Helvetica-Bold').fillColor(colors.primary).text(title, PAGE_LEFT, y);
   drawLine(y + 16, colors.accent, 1.5);
-  return y + 22;
+  return y + 24;
 };
 
 const addBulletPoint = (text, x, y, options = {}) => {
@@ -166,23 +166,16 @@ const education = [
     degree: 'Bachelor of Science in Computer Science',
     school: 'Eclaro Academy',
     period: '2023 – Present',
-    details: 'Current student building foundational knowledge in programming, data structures, algorithms, and web development.',
   },
   {
     degree: 'Senior High School — STEM Strand',
     school: 'Eclaro Academy',
     period: '2021 – 2023',
-    details: 'Science, Technology, Engineering, and Mathematics track.',
   },
   {
     degree: 'Junior High School',
     school: 'Batasan Hills National High School',
     period: '2017 – 2021',
-  },
-  {
-    degree: 'Elementary School',
-    school: 'San Diego Elementary School',
-    period: '2011 – 2017',
   },
 ];
 
@@ -206,35 +199,33 @@ y += 5;
 y = addSectionHeader('TECHNICAL SKILLS', y);
 
 const skills = [
-  { category: 'Frontend', items: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'TypeScript', 'Responsive Design'] },
-  { category: 'Frameworks & Libraries', items: ['React', 'React Three Fiber', 'Drei', 'Three.js', 'Vite'] },
-  { category: 'APIs & State', items: ['REST APIs', 'JSON', 'Zustand', 'React Context', 'React Hooks'] },
-  { category: 'Tools & Workflow', items: ['Git', 'GitHub', 'npm', 'Node.js (basic)', 'VS Code'] },
-  { category: 'Desktop / Other', items: ['Python', 'Python Tkinter', 'tkcalendar', 'Pillow (PIL)'] },
+  { category: 'Languages', items: ['JavaScript', 'TypeScript', 'Python', 'C++', 'HTML5', 'CSS3'] },
+  { category: 'Frontend', items: ['React', 'Vite', 'Tailwind CSS', 'Three.js', 'React Three Fiber', 'Drei', 'Zustand'] },
+  { category: 'Backend & APIs', items: ['Node.js (basic)', 'REST APIs', 'Open-Meteo API', 'Formspree', 'JSON'] },
+  { category: 'Systems', items: ['Windows API', 'ctypes', 'Tkinter', 'CMake', 'Zydis', 'Binary Analysis', 'Reverse Engineering'] },
+  { category: 'Tools & Platforms', items: ['Git', 'GitHub', 'VS Code', 'npm', 'Cloudflare Pages'] },
+  { category: 'AI Coding Agents', items: ['OpenCode', 'Claude Code'] },
+  { category: 'Strengths', items: ['Fast learner', 'Adaptability', 'Problem-solving', 'Continuous learning'] },
 ];
 
 skills.forEach((skill) => {
   const items = skill.items.join(', ');
-  doc.fontSize(9.5).font('Helvetica-Bold').fillColor(colors.secondary).text(skill.category + ':', PAGE_LEFT, y, { width: 120 });
-  doc.fontSize(9.5).font('Helvetica').fillColor(colors.text).text(items, 170, y, { width: 375, lineGap: 1 });
-  y += doc.heightOfString(items, { width: 375, lineGap: 1 }) + 2;
+  doc.fontSize(9).font('Helvetica-Bold').fillColor(colors.secondary).text(skill.category + ':', PAGE_LEFT, y, { width: 120 });
+  doc.fontSize(9).font('Helvetica').fillColor(colors.text).text(items, 170, y, { width: 375, lineGap: 1 });
+  y += doc.heightOfString(items, { width: 375, lineGap: 1 }) + 1.5;
 });
 
-y += 5;
+y += 3;
 
-// ============ PERSONAL STRENGTHS ============
-y = addSectionHeader('PERSONAL STRENGTHS', y);
+// ============ AI-ASSISTED DEVELOPMENT ============
+y = addSectionHeader('AI-ASSISTED DEVELOPMENT', y);
 
-const strengths = [
-  'Fast Learner — Quickly grasp unfamiliar concepts and technologies',
-  'Adaptability — Flexible in changing environments and approaches',
-  'Problem-Solving — Analytical mindset for working through technical challenges',
-  'Continuous Learning — Self-motivated to expand technical knowledge',
-];
+doc.fontSize(9).font('Helvetica-Bold').fillColor(colors.secondary).text('OpenCode  •  Claude Code', PAGE_LEFT, y);
+y += 11;
 
-strengths.forEach((strength) => {
-  y = addBulletPoint(strength, PAGE_LEFT, y, { size: 9 });
-});
+const aiExperience = 'Used both AI coding agents across my web and systems projects for AI-assisted programming, code generation, debugging, code refactoring, project implementation, code analysis, and development workflow automation.';
+doc.fontSize(8.5).font('Helvetica').fillColor(colors.text).text(aiExperience, PAGE_LEFT, y, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1 });
+y += doc.heightOfString(aiExperience, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1 }) + 2;
 
 y += 5;
 
@@ -245,7 +236,7 @@ const projects = [
   {
     name: 'RoomCraft — 3D Interior Design Planner',
     type: 'Personal Project',
-    description: 'Browser-based 3D interior design planner built with React and TypeScript for arranging furniture, saving layouts, exporting projects as JSON, and capturing screenshots.',
+    description: 'Browser-based 3D planner for arranging furniture, saving layouts, and exporting JSON or screenshots.',
     technologies: 'React, TypeScript, Vite, Three.js, React Three Fiber, Drei, Zustand',
     links: [
       { label: 'Live Demo:', display: 'https://roomcraft-3d-demo.pages.dev/', url: 'https://roomcraft-3d-demo.pages.dev/' },
@@ -255,14 +246,14 @@ const projects = [
   {
     name: 'Automated Payroll System with Chatbot',
     type: 'Academic Project',
-    description: 'Web-based payroll system with a JavaScript interface for employee management, salary computation, and a chatbot.',
+    description: 'Web payroll prototype for employee management, salary computation, and chatbot assistance.',
     technologies: 'HTML, CSS, JavaScript',
     links: [],
   },
   {
     name: 'Weather Advisory System',
     type: 'Academic Project',
-    description: 'Responsive weather dashboard built with React and TypeScript, using the Open-Meteo REST API for live data, forecasts, interactive charts, and saved locations.',
+    description: 'React weather dashboard using the Open-Meteo REST API for forecasts, charts, advisories, and saved locations.',
     technologies: 'React, TypeScript, Vite, Open-Meteo API',
     links: [
       { label: 'Live Demo:', display: 'https://weather-advisory-system.pages.dev/', url: 'https://weather-advisory-system.pages.dev/' },
@@ -272,7 +263,7 @@ const projects = [
   {
     name: 'Personal CV Portfolio Website',
     type: 'Personal Project',
-    description: 'Responsive, accessible frontend built with TypeScript and Vite, with scroll animations and a working contact form.',
+    description: 'Responsive TypeScript and Vite portfolio with scroll animations, a contact form, and a generated PDF CV.',
     technologies: 'Vite, TypeScript, HTML, CSS, JavaScript',
     links: [
       { label: 'Live Demo:', display: 'https://cvnikyle.netlify.app/', url: 'https://cvnikyle.netlify.app/' },
@@ -282,9 +273,27 @@ const projects = [
   {
     name: 'Healthcare Management System (HCMS)',
     type: 'Academic Project',
-    description: 'Desktop application with a Tkinter interface for authentication, patient records, and appointment scheduling using JSON storage.',
+    description: 'Tkinter desktop prototype for authentication, patient records, and appointment scheduling with JSON storage.',
     technologies: 'Python, Tkinter, ttk, Pillow, tkcalendar',
     links: [],
+  },
+  {
+    name: 'CS2 Systems Experiment',
+    type: 'Systems & Experiments',
+    description: 'Read-only Python overlay using ctypes and the Windows API to read CS2 process memory and render a Tkinter overlay.',
+    technologies: 'Python, ctypes, Windows API, Tkinter, ReadProcessMemory',
+    links: [
+      { label: 'GitHub:', display: 'https://github.com/kyle12314124/cheatnigg4z', url: 'https://github.com/kyle12314124/cheatnigg4z' },
+    ],
+  },
+  {
+    name: 'Blood Strike Systems Experiment',
+    type: 'Systems & Experiments',
+    description: 'C++ offset dumper that analyses the running process or a PE file and decodes instructions with Zydis.',
+    technologies: 'C++, Windows API, CMake, Zydis, PE Analysis, Reverse Engineering',
+    links: [
+      { label: 'GitHub:', display: 'https://github.com/kyle12314124/cheatnigg4z2', url: 'https://github.com/kyle12314124/cheatnigg4z2' },
+    ],
   },
 ];
 
@@ -295,27 +304,27 @@ projects.forEach((project, idx) => {
   y += 12;
 
   doc.fontSize(8.5).font('Helvetica').fillColor(colors.text).text(project.description, PAGE_LEFT, y, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1 });
-  y += doc.heightOfString(project.description, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1 }) + 2;
+  y += doc.heightOfString(project.description, { width: PAGE_RIGHT - PAGE_LEFT, lineGap: 1 }) + 1;
 
   // Technologies
   doc.fontSize(9).font('Helvetica-Bold').fillColor(colors.secondary).text('Technologies: ', PAGE_LEFT, y, { continued: true });
   doc.font('Helvetica').fillColor(colors.text).text(project.technologies);
-  y += 13;
+  y += 12;
 
   // Links
   y = addLinkLine(project.links, y);
 
   if (idx < projects.length - 1) {
-    y += 2.5;
+    y += 1.5;
     drawLine(y, colors.line, 0.3);
-    y += 2.5;
+    y += 1.5;
   }
 });
 
-y += 4;
+y += 2;
 
 // ============ FOOTER ============
-const footerText = 'References available upon request.  This CV was generated from the portfolio source code at github.com/kyle12314124/cv-for-future';
+const footerText = 'References available upon request.  Generated from github.com/kyle12314124/cv-for-future';
 // Set the font explicitly: heightOfString uses the current font, and the last
 // project may leave it at a different size depending on whether it has links.
 doc.fontSize(8).font('Helvetica');
